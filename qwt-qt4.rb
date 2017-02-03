@@ -1,3 +1,7 @@
+#
+# from another tap; I don't remember where
+#
+
 class QwtQt4 < Formula
   desc "Qt Widgets for Technical Applications"
   homepage "http://qwt.sourceforge.net/"
@@ -9,7 +13,7 @@ class QwtQt4 < Formula
   option "with-qwtmathml", "Build the qwtmathml library"
   option "with-plugin", "Build Qt Designer plugin"
 
-  depends_on "qt"
+  depends_on "qt4"
 
   # Update designer plugin linking back to qwt framework/lib after install
   # See: https://sourceforge.net/p/qwt/patches/45/
@@ -22,7 +26,7 @@ class QwtQt4 < Formula
 
       # Install Qt plugin in `lib/qt-4/plugins/designer`, not `plugins/designer`.
       s.sub! %r{(= \$\$\{QWT_INSTALL_PREFIX\})/(plugins/designer)$},
-             "\\1/opt/qt/\\2"
+          "\\1/opt/qt/\\2" if build.with? "plugin"
     end
 
     args = ["-config", "release", "-spec"]
